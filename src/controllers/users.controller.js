@@ -1,4 +1,4 @@
-import user from '../models/user.model.js'
+import users from '../models/users.model.js'
 
 function create(req, res) {
   if (!req.body.title) {
@@ -13,7 +13,7 @@ function create(req, res) {
     email: req.body.email,
   }
 
-  user
+  users
     .create(userData)
     .then((data) => {
       res.send(data)
@@ -26,7 +26,7 @@ function create(req, res) {
 }
 
 function getAll(req, res) {
-  user
+  users
     .findAll()
     .then((data) => {
       res.send(data)

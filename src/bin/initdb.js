@@ -1,5 +1,5 @@
 import sequelizeInstance from '../sequelizeInstance.js'
-import user from '../models/user.model.js'
+import user from '../models/users.model.js'
 import faker from 'faker'
 
 const userSeedData = []
