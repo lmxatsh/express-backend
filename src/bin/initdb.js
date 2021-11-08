@@ -1,4 +1,4 @@
-import sequelizeInstance from '../sequelizeInstance.js'
+import db from '../db.js'
 import user from '../models/users.model.js'
 import faker from 'faker'
 
@@ -10,10 +10,10 @@ for (let i = 0; i < 10; i++) {
   })
 }
 
-await sequelizeInstance.drop()
+await db.drop()
 
-await sequelizeInstance
-  .sync()
+await db
+  .sync({ force: true })
   .then(() => {
     console.log(`create database`)
     user

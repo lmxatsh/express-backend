@@ -1,13 +1,28 @@
 import users from '../models/users.model.js'
 
-function create(req, res) {
-  if (!req.body.title) {
-    res.status(400).send({
-      message: 'Content can not be empty!',
+function getByid(req, res) {
+  users
+    .findAll({
+      where: {
+        id: req.params.id,
+      },
     })
-    return
-  }
+    .then((data) => {
+      console.log(data)
+      if (data.length > 0) {
+        res.status(200).send(data)
+      } else {
+        res.status(404).end()
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while creating the User.',
+      })
+    })
+}
 
+function create(req, res) {
   const userData = {
     name: req.body.name,
     email: req.body.email,
@@ -16,7 +31,10 @@ function create(req, res) {
   users
     .create(userData)
     .then((data) => {
-      res.send(data)
+      res
+        .location('/users/' + data.id)
+        .status(201)
+        .send(data)
     })
     .catch((err) => {
       res.status(500).send({
@@ -39,4 +57,4 @@ function getAll(req, res) {
     })
 }
 
-export { create, getAll }
+export { create, getAll, getByid }
