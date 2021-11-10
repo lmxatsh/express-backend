@@ -10,7 +10,7 @@ function getByid(req, res) {
     .then((data) => {
       console.log(data)
       if (data.length > 0) {
-        res.status(200).send(data)
+        res.status(200).send(JSON.stringify(data))
       } else {
         res.status(404).end()
       }
