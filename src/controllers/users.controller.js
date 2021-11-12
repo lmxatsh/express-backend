@@ -1,5 +1,19 @@
 import users from '../models/users.model.js'
 
+async function exists(req, res, next) {
+  const user = await users.findOne({
+    where: {
+      email: req.body.email,
+    },
+  })
+  if (user) {
+    console.log(`${req.body.email} exists`)
+    res.send(`${req.body.email} exists`)
+  } else {
+    next()
+  }
+}
+
 function getByid(req, res) {
   users
     .findAll({
@@ -24,13 +38,14 @@ function getByid(req, res) {
 
 function create(req, res) {
   const userData = {
-    name: req.body.name,
     email: req.body.email,
+    password: req.body.password,
   }
 
   users
     .create(userData)
     .then((data) => {
+      console.log(`save ${req.body}`)
       res
         .location('/users/' + data.id)
         .status(201)
@@ -57,4 +72,4 @@ function getAll(req, res) {
     })
 }
 
-export { create, getAll, getByid }
+export { create, exists, getAll, getByid }

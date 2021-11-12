@@ -5,8 +5,8 @@ import faker from 'faker'
 const userSeedData = []
 for (let i = 0; i < 10; i++) {
   userSeedData.push({
-    name: faker.name.findName(),
     email: faker.internet.email(),
+    password: '123456',
   })
 }
 
