@@ -1,9 +1,11 @@
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import usersRouter from './routes/users.route.js'
 import authRouter from './routes/auth.route.js'
 const app = express()
 
 app.use(express.json())
+app.use(cookieParser())
 app.use((req, res, next) => {
   if (req.method === 'GET') {
     res.set('Cache-Control', `max-age=60`)

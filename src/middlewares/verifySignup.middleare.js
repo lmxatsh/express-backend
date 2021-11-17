@@ -1,4 +1,4 @@
-import users from '../models/users.model'
+import users from '../models/users.model.js'
 
 async function verifySignup(req, res, next) {
   const user = await users.findOne({
@@ -11,9 +11,9 @@ async function verifySignup(req, res, next) {
     res.status(400).send({
       message: `${user.email} is already in use`,
     })
-    return
+  } else {
+    next()
   }
-  next()
 }
 
 export default verifySignup

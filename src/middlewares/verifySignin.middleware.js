@@ -1,4 +1,4 @@
-import users from '../models/users.model'
+import users from '../models/users.model.js'
 
 async function verifySignin(req, res, next) {
   const user = await users.findOne({

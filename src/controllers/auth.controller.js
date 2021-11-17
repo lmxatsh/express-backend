@@ -1,7 +1,7 @@
-import users from '../models/users.model'
-import tokens from '../models/tokens.model'
-import * as jwt from 'jsonwebtoken'
-import appConfig from '../config/app.config'
+import users from '../models/users.model.js'
+import tokens from '../models/tokens.model.js'
+import jwt from 'jsonwebtoken'
+import appConfig from '../config/app.config.js'
 
 function signup(req, res) {
   const userData = {
@@ -43,4 +43,15 @@ function signin(req, res) {
     })
 }
 
-export { signup, signin }
+async function logout(req, res) {
+  const token = await tokens.findOne({
+    where: { token: req.cookies.access_token },
+  })
+  if (token) {
+    token.valid = 'n'
+    await token.save()
+  }
+  res.clearCookie('access_token').status(200).send(`Successfully logged out`)
+}
+
+export { signup, signin, logout }
