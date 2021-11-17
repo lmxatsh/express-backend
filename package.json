@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "initdb": "node ./src/bin/initdb.js",
     "dev": "nodemon ./src/bin/runApp.js",
     "test": "jest"
