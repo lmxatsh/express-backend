@@ -1,20 +1,11 @@
 import express from 'express'
-import passport from 'passport'
-//import * as auth from '../controllers/auth.controller.js'
+import * as auth from '../controllers/auth.controller.js'
+import verifySignup from '../middlewares/verifySignup.middleare.js'
 
 const authRouter = express.Router()
 
-authRouter.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/loginok',
-    failureRedirect: '/loginfail',
-    session: false,
-  }),
-  (req, res) => {
-    console.log(req)
-    res.redirect('/loginok')
-  }
-)
+authRouter.post('/signup', verifySignup, auth.signup)
+
+authRouter.post('/signin', auth.signin)
 
 export default authRouter

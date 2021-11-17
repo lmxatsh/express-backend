@@ -1,6 +1,4 @@
 import express from 'express'
-import passport from 'passport'
-import { setPassportlocalStrategy } from './passport.init.js'
 import usersRouter from './routes/users.route.js'
 import authRouter from './routes/auth.route.js'
 const app = express()
@@ -13,11 +11,9 @@ app.use((req, res, next) => {
   next()
 })
 
-setPassportlocalStrategy(passport)
-app.use(passport.initialize())
-
 app.use('/users', usersRouter)
 app.use('/auth', authRouter)
+
 app.get('/', (req, res) => {
   res.send('Hello Express')
 })

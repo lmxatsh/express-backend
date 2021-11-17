@@ -1,19 +1,5 @@
 import users from '../models/users.model.js'
 
-async function exists(req, res, next) {
-  const user = await users.findOne({
-    where: {
-      email: req.body.email,
-    },
-  })
-  if (user) {
-    console.log(`${req.body.email} exists`)
-    res.send(`${req.body.email} exists`)
-  } else {
-    next()
-  }
-}
-
 function getByid(req, res) {
   users
     .findAll({
@@ -72,4 +58,4 @@ function getAll(req, res) {
     })
 }
 
-export { create, exists, getAll, getByid }
+export { create, getAll, getByid }
