@@ -2,14 +2,14 @@ import users from '../models/users.model.js'
 
 function getByid(req, res) {
   users
-    .findAll({
+    .findOne({
       where: {
         id: req.params.id,
       },
     })
     .then((data) => {
       console.log(data)
-      if (data.length > 0) {
+      if (data) {
         res.status(200).send(JSON.stringify(data))
       } else {
         res.status(404).end()

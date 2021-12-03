@@ -54,4 +54,27 @@ async function logout(req, res) {
   res.clearCookie('access_token').status(200).send(`Successfully logged out`)
 }
 
-export { signup, signin, logout }
+function getUser(req, res) {
+  users
+    .findOne({
+      where: {
+        email: req.userEmail,
+      },
+    })
+    .then((data) => {
+      if (data) {
+        console.log(data)
+        res.status(200).send(JSON.stringify({ id: data.id, email: data.email }))
+      } else {
+        console.log(`Error`)
+        res.status(404).end()
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while creating the User.',
+      })
+    })
+}
+
+export { signup, signin, logout, getUser }

@@ -12,4 +12,6 @@ authRouter.post('/signin', userHasLoggedIn, auth.signin)
 
 authRouter.post('/logout', verifyToken, auth.logout)
 
+authRouter.get('/user', verifyToken, auth.getUser)
+
 export default authRouter
